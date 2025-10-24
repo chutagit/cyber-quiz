@@ -27,10 +27,6 @@ quiz-cyber/
 4. Po kilku minutach quiz będzie dostępny pod adresem  
    `https://twoja-nazwa.github.io/quiz-cyber/`.
 
-### Netlify
-1. Zaloguj się na [netlify.com](https://www.netlify.com/).
-2. Połącz swoje repozytorium.
-3. Kliknij **Deploy site** – gotowe!
 
 ## ✏️ Edycja pytań
 Wszystkie pytania znajdują się w pliku `questions.json`.  
