@@ -33,9 +33,20 @@
     let score = 0;
 
     async function loadQuestions() {
-      const response = await fetch('questions.json');
-      questions = await response.json();
-      showQuestion();
+      try {
+        const response = await fetch('questions.json');
+        if (!response.ok) throw new Error(`Błąd HTTP: ${response.status}`);
+        questions = await response.json();
+
+        if (!Array.isArray(questions) || questions.length === 0) {
+          document.getElementById('quiz').innerHTML = "<p><b>Błąd:</b> Nie znaleziono pytań w pliku questions.json.</p>";
+          return;
+        }
+        showQuestion();
+      } catch (error) {
+        document.getElementById('quiz').innerHTML = `<p><b>Nie udało się wczytać pytań.</b><br>${error.message}</p>`;
+        console.error("Błąd wczytywania pytań:", error);
+      }
     }
 
     function showQuestion() {
@@ -47,7 +58,6 @@
       nextBtn.style.display = 'none';
       restartBtn.style.display = 'none';
       scoreDiv.textContent = '';
-      
       quizDiv.innerHTML = '';
 
       if (currentQuestionIndex < questions.length) {
@@ -59,12 +69,14 @@
 
         const answersDiv = document.createElement('div');
         answersDiv.classList.add('answers');
-        q.answers.forEach(answer => {
+
+        q.answers.forEach((answer) => {
           const btn = document.createElement('button');
           btn.textContent = answer.text;
-          btn.onclick = () => selectAnswer(btn, answer.correct);
+          btn.onclick = () => selectAnswer(btn, answer.correct, answersDiv);
           answersDiv.appendChild(btn);
         });
+
         quizDiv.appendChild(answersDiv);
       } else {
         quizDiv.innerHTML = '<h2>Koniec quizu!</h2>';
@@ -73,17 +85,23 @@
       }
     }
 
-    function selectAnswer(button, correct) {
-      const buttons = button.parentElement.querySelectorAll('button');
+    function selectAnswer(button, correct, answersDiv) {
+      const buttons = answersDiv.querySelectorAll('button');
       buttons.forEach(b => b.disabled = true);
+
       if (correct) {
         button.classList.add('correct');
         score++;
       } else {
         button.classList.add('incorrect');
-        const correctBtn = [...buttons].find(b => b.textContent === button.parentElement.querySelectorAll('button')[Array.from(button.parentElement.children).findIndex(btn => questions[currentQuestionIndex].answers[Array.from(button.parentElement.children).indexOf(btn)].correct)].textContent);
-        correctBtn?.classList.add('correct');
+        // oznacz poprawną odpowiedź
+        const correctBtn = [...buttons].find(b => {
+          const ansIndex = Array.from(answersDiv.children).indexOf(b);
+          return questions[currentQuestionIndex].answers[ansIndex].correct;
+        });
+        if (correctBtn) correctBtn.classList.add('correct');
       }
+
       document.getElementById('next-btn').style.display = 'inline-block';
     }
 
