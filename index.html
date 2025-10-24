@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz o Cyberbezpieczeństwie</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.4}
+    body{max-width:820px;margin:28px auto;padding:16px}
+    header{margin-bottom:18px}
+    h1{margin:0 0 6px}
+    .meta{color:#555;margin-bottom:18px}
+    .card{border:1px solid #e3e3e3;padding:14px;border-radius:8px;margin-bottom:12px}
+    button{cursor:pointer;padding:8px 12px;border-radius:6px;border:1px solid #bbb;background:#fff}
+    .choices{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+    .result{margin-top:12px;font-weight:600}
+    .controls{display:flex;gap:8px;margin-top:14px}
+    footer{margin-top:26px;color:#666;font-size:0.95rem}
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">Quiz o cyberbezpieczeństwie i płatnościach online</h1>
+    <div id="description" class="meta">Sprawdź swoją wiedzę o bezpieczeństwie w internecie i płatnościach elektronicznych.</div>
+  </header>
+
+  <main id="quiz-area"></main>
+
+  <footer>
+    Edytuj pytania w pliku <code>questions.json</code> i odśwież stronę, aby je zaktualizować.
+  </footer>
+
+  <script>
+async function loadQuiz(){
+  const res = await fetch('questions.json');
+  const quizData = await res.json();
+
+  const $ = sel => document.querySelector(sel);
+  const quizArea = $('#quiz-area');
+  $('#title').textContent = quizData.title || 'Quiz';
+  $('#description').textContent = quizData.description || '';
+
+  quizData.questions.forEach((qq, idx) => {
+    const card = document.createElement('section');
+    card.className = 'card';
+    card.id = qq.id || `q${idx}`;
+
+    const qh = document.createElement('div');
+    qh.innerHTML = `<strong>Pytanie ${idx+1}.</strong> ${qq.q}`;
+    card.appendChild(qh);
+
+    const choices = document.createElement('div');
+    choices.className = 'choices';
+    qq.choices.forEach((c, cidx) => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = card.id + '-choice';
+      input.value = cidx;
+      input.style.marginRight = '8px';
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(c));
+      choices.appendChild(label);
+    });
+    card.appendChild(choices);
+
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+
+    const checkBtn = document.createElement('button');
+    checkBtn.textContent = 'Sprawdź odpowiedź';
+    checkBtn.onclick = () => {
+      const selected = card.querySelector('input[type="radio"]:checked');
+      const result = card.querySelector('.result') || document.createElement('div');
+      result.className = 'result';
+      if(!selected){
+        result.textContent = 'Wybierz odpowiedź.';
+        card.appendChild(result);
+        return;
+      }
+      const selIdx = Number(selected.value);
+      if(typeof qq.correct === 'number'){
+        result.textContent = selIdx === qq.correct
+          ? 'Poprawna odpowiedź ✅ ' + (qq.explanation ? '— ' + qq.explanation : '')
+          : 'Niepoprawna ❌ ' + (qq.explanation ? '— ' + qq.explanation : '');
+      } else {
+        result.textContent = 'Odpowiedź lokalna — brak klucza poprawności.';
+      }
+      card.appendChild(result);
+    };
+
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = 'Resetuj';
+    resetBtn.onclick = () => {
+      const checked = card.querySelector('input[type="radio"]:checked');
+      if(checked) checked.checked = false;
+      const r = card.querySelector('.result');
+      if(r) r.remove();
+    };
+
+    controls.appendChild(checkBtn);
+    controls.appendChild(resetBtn);
+    card.appendChild(controls);
+
+    quizArea.appendChild(card);
+  });
+}
+loadQuiz();
+  </script>
+</body>
+</html>
