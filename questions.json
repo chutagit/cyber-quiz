@@ -1,16 +1,36 @@
-{
-  "title": "Quiz: Bezpieczeństwo płatności online",
-  "description": "10 krótkich pytań sprawdzających wiedzę o cyberbezpieczeństwie, płatnościach elektronicznych i ochronie danych.",
-  "questions": [
-    {"id": "q1","q": "Co oznacza symbol kłódki przy adresie strony internetowej?","choices": ["Że strona jest darmowa","Że połączenie jest szyfrowane","Że strona jest zweryfikowana przez policję"],"correct": 1,"explanation": "Kłódka oznacza szyfrowane połączenie HTTPS, które chroni dane przesyłane między Tobą a stroną."},
-    {"id": "q2","q": "Która z poniższych wiadomości może być próbą phishingu?","choices": ["E-mail z banku z prośbą o potwierdzenie danych logowania","Powiadomienie o logowaniu w aplikacji bankowej","Newsletter z Twojej uczelni"],"correct": 0,"explanation": "Bank nigdy nie prosi o podanie danych logowania przez e-mail. To klasyczny przykład phishingu."},
-    {"id": "q3","q": "Jak najlepiej chronić swoje konto bankowe online?","choices": ["Używać tego samego hasła co do e-maila","Używać silnego i unikalnego hasła","Logować się z publicznych Wi-Fi"],"correct": 1,"explanation": "Silne, unikalne hasło oraz uwierzytelnianie dwuskładnikowe to najlepsza ochrona."},
-    {"id": "q4","q": "Co to jest 2FA (uwierzytelnianie dwuskładnikowe)?","choices": ["Hasło wpisywane dwa razy","Dodatkowa metoda potwierdzenia tożsamości","Aplikacja do płatności mobilnych"],"correct": 1,"explanation": "2FA dodaje drugi element weryfikacji, np. kod SMS lub potwierdzenie w aplikacji."},
-    {"id": "q5","q": "Które z poniższych zachowań jest najbezpieczniejsze przy płatnościach online?","choices": ["Podawanie danych karty na nieznanej stronie","Sprawdzanie adresu strony i certyfikatu HTTPS","Klikanie w reklamy z ofertami banków"],"correct": 1,"explanation": "Zawsze upewnij się, że strona płatności jest szyfrowana i pochodzi od zaufanego dostawcy."},
-    {"id": "q6","q": "Jak rozpoznać fałszywy sklep internetowy?","choices": ["Brak danych kontaktowych i podejrzanie niskie ceny","Logo znanej marki i drogie produkty","Opinie klientów na stronie"],"correct": 0,"explanation": "Fałszywe sklepy często nie mają kontaktu, regulaminu ani wiarygodnych opinii."},
-    {"id": "q7","q": "Co należy zrobić, jeśli podejrzewasz, że ktoś poznał Twoje dane logowania do banku?","choices": ["Zignorować sytuację","Niezwłocznie zmienić hasło i powiadomić bank","Napisać o tym w mediach społecznościowych"],"correct": 1,"explanation": "Zmiana hasła i kontakt z bankiem pozwalają zablokować nieautoryzowany dostęp."},
-    {"id": "q8","q": "Dlaczego nie powinno się klikać w linki z nieznanych SMS-ów?","choices": ["Bo to strata czasu","Bo mogą prowadzić do fałszywych stron wyłudzających dane","Bo telefon się przegrzeje"],"correct": 1,"explanation": "Linki z SMS-ów mogą prowadzić do phishingu lub instalacji złośliwego oprogramowania."},
-    {"id": "q9","q": "Jak najlepiej zabezpieczyć urządzenie mobilne przed kradzieżą danych?","choices": ["Zainstalować antywirusa i aktualizować system","Udostępniać Wi-Fi wszystkim","Nie używać blokady ekranu"],"correct": 0,"explanation": "Aktualizacje i oprogramowanie ochronne zmniejszają ryzyko ataków i utraty danych."},
-    {"id": "q10","q": "Jakie działanie jest najrozsądniejsze, gdy oferta w internecie wydaje się zbyt dobra, by była prawdziwa?","choices": ["Sprawdzić źródło i opinie, zanim klikniesz","Od razu wpłacić pieniądze","Podać dane karty, by zarezerwować okazję"],"correct": 0,"explanation": "Zawsze sprawdzaj wiarygodność ofert — oszuści często kuszą zbyt atrakcyjnymi promocjami."}
-  ]
-}
+[
+  {
+    "question": "Co to jest phishing?",
+    "answers": [
+      {
+        "text": "Atak polegający na wyłudzeniu danych",
+        "correct": true
+      },
+      {
+        "text": "Rodzaj szyfrowania danych",
+        "correct": false
+      },
+      {
+        "text": "Legalna metoda weryfikacji konta",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "question": "Jak można rozpoznać fałszywą stronę banku?",
+    "answers": [
+      {
+        "text": "Ma nietypowy adres URL lub błędy językowe",
+        "correct": true
+      },
+      {
+        "text": "Ma nowoczesny wygląd",
+        "correct": false
+      },
+      {
+        "text": "Działa tylko na telefonie",
+        "correct": false
+      }
+    ]
+  }
+]
